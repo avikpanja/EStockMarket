@@ -1,0 +1,107 @@
+
+<div id="registrationDiv" class="card">
+    <h3 class="card-header">Company Registration From</h3>
+    <div class="card-body">
+        <form #rgstnForm="ngForm" id="registrationForm" (ngSubmit)="registerNewCompany(rgstnForm)">
+            <!--1st row -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" name="companyName" id="companyName" class="form-control"
+                        [(ngModel)]="newCompany.companyName" placeholder="Company name" 
+                        #name="ngModel" minlength="3" required>
+                    <div *ngIf="name.touched && name.invalid && name.errors!=null" class="alert alert-danger" role="alert">
+                        <div *ngIf="name.errors['minlength']">
+                            Minimum 3 character required!
+                        </div>
+                        <div *ngIf="name.errors['required']">
+                            Company name is required!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="companyCode">Company Code</label>
+                    <input type="text" name="companyCode" id="companyCode" class="form-control"
+                        [(ngModel)]="newCompany.companyCode" placeholder="Company code"
+                        #code="ngModel" minlength="3" required>
+                    <div *ngIf="code.touched && code.invalid && code.errors!=null" class="alert alert-danger" role="alert">
+                        <div *ngIf="code.errors['minlength']">
+                            Minimum 3 character required!
+                        </div>
+                        <div *ngIf="code.errors['required']">
+                            Company code is required!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2nd row -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="ceo">CEO Name</label>
+                    <input type="text" name="ceo" id="ceo" class="form-control" 
+                        [(ngModel)]="newCompany.ceo" placeholder="Ceo name"
+                        #ceoName="ngModel" minlength="2" required>
+                    <div *ngIf="ceoName.touched && ceoName.invalid && ceoName.errors!=null" class="alert alert-danger" role="alert">
+                        <div *ngIf="ceoName.errors['minlength']">
+                            Minimum 2 character required!
+                        </div>
+                        <div *ngIf="ceoName.errors['required']">
+                            CEO name is required!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="turnover">Turnover</label>
+                    <div class="input-group mb-3" style="margin-bottom: 0px!important;">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">$</span>
+                        </div>
+                        <input type="number" name="turnover" id="turnover" class="form-control"
+                            [(ngModel)]="newCompany.turnover" placeholder="Turnover amount"
+                            #turnover="ngModel" min="100000000" required>
+                    </div>
+                    <div *ngIf="turnover.touched && turnover.invalid && turnover.errors!=null" class="alert alert-danger" role="alert">
+                        <div *ngIf="turnover.errors['min']" >
+                            Minimum 10 crore required!
+                        </div>
+                        <div *ngIf="turnover.errors['required']">
+                            Turnover is required!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3rd row -->
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="website">Website</label>
+                    <input type="url" name="website" id="website" class="form-control"
+                        [(ngModel)]="newCompany.website" placeholder="www.domain.com"
+                        #website="ngModel" required>
+                    <div *ngIf="website.touched && website.invalid" class="alert alert-danger" role="alert">
+                        <!-- <div *ngIf="website.errors['required']"> -->
+                            Website is required!
+                        <!-- </div> -->
+                    </div> 
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="stockExchange">Exchange</label>
+                    <select class="form-control custom-select" name="stockExchange" id="stockExchange"
+                        [(ngModel)]="newCompany.stockExchange" #stockEx="ngModel" required>
+                        <option *ngFor="let oneItem of stockExchangeList" [value]="oneItem">{{oneItem}}</option>
+                    </select>
+                    <div *ngIf="stockEx.touched && stockEx.invalid" class="alert alert-danger" role="alert">
+                        <!-- <div *ngIf="ceoName.errors['required']"> -->
+                            Stock Exchange is required!
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <button type="submit" class="btn btn-secondary btn-md">Register</button>
+            </div>
+        </form>
+    </div>
+</div>

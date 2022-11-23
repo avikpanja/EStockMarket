@@ -1,0 +1,12 @@
+.search-form-field {
+    margin: 10px;
+    width: 100%;
+}
+
+#companyDeleteModal {
+    position: absolute;
+    float: left;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-sm navabr-dark bg-dark">
+    <a href="#" class="navbar-brand">{{companyName}}</a>
+    <!-- <span>Indian Stock Exchange</span> -->
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarMenu">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a [routerLink]="['/register-company']" class="nav-link">Register Company</a>
+            </li>
+        </ul>
+        <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form> -->
+        
+          <span class="text-light"> <i>Welcome</i> {{userContext.firstname}} {{userContext.lastname}}</span>
+          <!-- <mat-icon color="#ffffff">person_outline</mat-icon> -->
+          &nbsp; <span class="text-light" style="font-size: 30px;"> | </span> &nbsp;&nbsp;&nbsp;
+        <button class="btn btn-outline-success btn-sm" type="submit" (click)="logOut()">
+            Log out
+        </button>
+    </div>
+    
+</nav>

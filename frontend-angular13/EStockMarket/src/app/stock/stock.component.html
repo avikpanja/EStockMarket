@@ -1,0 +1,174 @@
+<div id="companyDetails" class="card">
+
+    <div>
+        <div class="card-body">
+            <div class="row m-0">
+                <div class="col-sm-2">
+                    <label for="fromDate"> From </label> &nbsp; 
+                    <input id="fromDate"type="date" [(ngModel)]="dateRange.from" (change)="onDateChange()">
+                </div>
+                <div class="col-sm-2">
+                    <label for="toDate"> To </label> &nbsp; 
+                    <input id="toDate"type="date" [(ngModel)]="dateRange.to" (change)="onDateChange()">
+                    
+                </div>
+                
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div id="stockHistDiv" class="card">
+            
+                        <h3 class="card-header clickable" data-toggle="collapse" data-target="#collapseDiv2">
+                            Stock Price History
+                        </h3>
+                    
+                        <div class="collapse show" id="collapseDiv2">
+                            <div class="card-body">
+                                <table class=" table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Company Code</th>
+                                            <th>Stock Price</th>
+                                            <th>Updated Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let stock of filteredStockHistory; index as index">
+                                            <td>{{index+1}}</td>
+                                            <td>{{selectedCompanyCode}}</td>
+                                            <td>{{stock.stockPrice| number: '1.2-2'}}</td>
+                                            <td>{{stock.createdDateTime | date: 'dd-MM-YYYY HH:mm:ss'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="col-sm-6">
+                    <div id="stockStat" class="card">
+                        <h3 class="card-header clickable" data-toggle="collapse" data-target="#collapseDiv1">
+                            Stock Price Statistics
+                        </h3>
+                    
+                        <div class="collapse show" id="collapseDiv1">
+                            <div class="card-body">
+                                
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-sm-6">Min Stock Price</td>
+                                            <td class="col-sm-6">{{stockStatObj.min| number: '1.2-2'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-6">Max Stock Price</td>
+                                            <td class="col-sm-6">{{stockStatObj.max| number: '1.2-2'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-6">Average Stock Price</td>
+                                            <td class="col-sm-6">{{stockStatObj.avg | number: '1.2-2'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+<br/>
+<div id="companyDetails" class="card">
+    <h3 class="card-header clickable" data-toggle="collapse" data-target="#collapseDiv3">
+        Company Details
+    </h3>
+
+    <div class="collapse show" id="collapseDiv3">
+        <div class="card-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td class="col-sm-6">Company Name</td>
+                        <td class="col-sm-6">{{selectedComp.companyName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">Company Code</td>
+                        <td class="col-sm-6">{{selectedComp.companyCode}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">Ceo Name</td>
+                        <td class="col-sm-6">{{selectedComp.ceo}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">Website</td>
+                        <td class="col-sm-6">{{selectedComp.website}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">Stock Exchange</td>
+                        <td class="col-sm-6">{{selectedComp.stockExchange}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">Turnover</td>
+                        <td class="col-sm-6">{{selectedComp.turnover}}</td>
+                    </tr>
+                    <tr>
+                        <td class="col-sm-6">Stock Price</td>
+                        <td class="col-sm-6">
+                            {{selectedComp.stockPrice | number: '1.2-2'}}
+                            &nbsp;
+                            <button type="button" class="btn btn-outline-secondary btn-sm" (click)="openStockUpdateModal()">
+                                Update Price
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- Stock update modal -->
+<div class="modal fade" id="stockPriceUpdateModal" tabindex="-1" role="dialog" hide>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h3 class="modal-title text-white">Update Stock Price</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #stockUpdateForm="ngForm">
+                    <div class="form-group row">
+                        <label for="spUpdtMdlCc" class="col-sm-4 col-form-label">
+                            Code
+                         </label>
+                         <div class="col-sm-8">
+                             <input id="spUpdtMdlCc" class="form-control col-md-10" type="text" name="companyCode" 
+                                [(ngModel)]="stockModalData.companyCode" disabled>
+                         </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="spUpdtMdlSp" class="col-sm-4 col-form-label">
+                            Stock Price
+                         </label>
+                         <div class="col-sm-8">
+                            <input id="spUpdtMdlSp" class="form-control col-md-10" type="text" name="stockPrice" 
+                                [(ngModel)]="stockModalData.stockPrice" placeholder="Stock price">
+                         </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="updateStockPrice()">Save changes</button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div *ngIf="user && user.token; else login">
+    <navigation-bar></navigation-bar>
+    <div class="container-fluid container-body">
+        <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+</div>
+<ng-template #login>
+    <user-login></user-login>
+</ng-template>
